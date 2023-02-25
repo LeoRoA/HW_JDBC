@@ -1,51 +1,32 @@
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Application {
     public static void main(String[] args) throws SQLException {
-        final String user = "postgres";
-        final String password = "4294967297";
-        final String url = "jdbc:postgresql://localhost:5432/skypro";
 
-        try (Connection connection = DriverManager.getConnection(url, user, password)) {
-            try (PreparedStatement statement = connection.prepareStatement(
-                    "SELECT * FROM employee WHERE id=2")) {
+        EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 
-                ResultSet resultSet = statement.executeQuery();
-                while (resultSet.next())
-                    System.out.println(resultSet.getInt("id") + " "
-                            + resultSet.getString("first_name") + " "
-                            + resultSet.getString("last_name") + " "
-                            + resultSet.getString("gender") + " "
-                            + resultSet.getString("age") + " "
-                            + resultSet.getString("city_id"));
+        City cityMax = new City(7, "GasTown");
+        Employee employeeMax = new Employee("Max", "Mad", "male", 30, cityMax.getCityId());
+        employeeDAO.create(employeeMax);
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        System.out.println(employeeDAO.readById(13));
 
-            EmployeeDAO employeeDAO = new EmployeeDAOImpl(connection);
+        employeeMax = new Employee(18,"Max", "Mad", "male", 32, 4);
 
-            City cityMax = new City(7, "GasTown");
-            Employee employeeMax = new Employee(7, "Max", "Mad", "male", 30, cityMax);
-            employeeDAO.create(employeeMax);
+        employeeDAO.updateById(employeeMax);
 
-            System.out.println(employeeDAO.readById(7));
+        System.out.println(employeeDAO.readById(16));
 
-            employeeDAO.updateById(7, 4);
+        employeeDAO.deleteById(employeeMax);
 
-            System.out.println(employeeDAO.readById(7));
+        List<Employee> employeeList = (employeeDAO.readAll());
 
-            employeeDAO.deleteById(7);
-
-            List<Employee> employeeList = new ArrayList<>(employeeDAO.readAll());
-
-            for (Employee employee : employeeList) {
-                System.out.println(employee);
-            }
-
-
+        for (Employee employee : employeeList) {
+            System.out.println(employee);
         }
+
+
     }
 }
+
