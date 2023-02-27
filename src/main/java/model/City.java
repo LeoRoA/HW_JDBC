@@ -1,8 +1,30 @@
-import java.util.Objects;
+package model;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+
+@Entity
+@Table(name = "city")
 public class City {
-private int cityId;
-private String cityName;
+    @Id
+    @Column(name = "city_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    private int cityId;
+    @Column(name = "city_name")
+    private String cityName;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
+    Set<Employee> employees = new HashSet<>();
+
+    public City() {
+    }
+
+    public City(String cityName) {
+        this.cityName = cityName;
+    }
 
     public City(int cityId, String cityName) {
         this.cityId = cityId;
@@ -40,7 +62,7 @@ private String cityName;
 
     @Override
     public String toString() {
-        return "City{" +
+        return "model.City{" +
                 "city_id=" + cityId +
                 ", city_name='" + cityName + '\'' +
                 '}';
