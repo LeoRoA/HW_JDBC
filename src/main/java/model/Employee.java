@@ -103,6 +103,7 @@ public class Employee {
                 employee.getFirstName()) && Objects.equals(getLastName(),
                 employee.getLastName()) && Objects.equals(getGender(),
                 employee.getGender()) && Objects.equals(getCity(), employee.getCity());
+
     }
 
     @Override

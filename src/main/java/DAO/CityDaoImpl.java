@@ -25,7 +25,9 @@ public class CityDaoImpl implements CityDao {
 
     @Override
     public City readById(int id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(City.class, id);
+        City cityById= HibernateSessionFactoryUtil.getSessionFactory().openSession().get(City.class, id);
+        HibernateSessionFactoryUtil.getSessionFactory().close();
+        return cityById;
     }
 
     @Override

@@ -1,8 +1,6 @@
 package model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,7 +15,7 @@ public class City {
     @Column(name = "city_name")
     private String cityName;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
-    Set<Employee> employees = new HashSet<>();
+    private Set<Employee> employees;
 
     public City() {
     }

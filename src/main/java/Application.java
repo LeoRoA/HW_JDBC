@@ -43,8 +43,6 @@ public class Application {
         for (Employee employee : employeeList) {
             System.out.println(employee);
         }
-
-
     }
 }
 

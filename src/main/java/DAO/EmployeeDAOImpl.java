@@ -1,12 +1,10 @@
 package DAO;
 
-
 import model.Employee;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import session.HibernateSessionFactoryUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
@@ -30,7 +28,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public Employee readById(int id) {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Employee.class, id);
+        Employee employeeById =  HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Employee.class, id);
+        HibernateSessionFactoryUtil.getSessionFactory().close();
+        return employeeById;
     }
 
     @Override
