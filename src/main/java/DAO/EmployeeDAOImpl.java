@@ -35,8 +35,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public List<Employee> readAll() {
-        return HibernateSessionFactoryUtil
+        List<Employee> employees=  HibernateSessionFactoryUtil
                 .getSessionFactory().openSession().createQuery("From Employee", Employee.class).list();
+        HibernateSessionFactoryUtil.getSessionFactory().close();
+        return employees;
     }
 
     @Override
